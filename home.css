@@ -1,0 +1,262 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.home__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: #3b5998;
+  color: #ffffff;
+}
+
+.home__header__left {
+  display: flex;
+  align-items: center;
+}
+
+.home__header__left img {
+  height: 40px;
+  margin-right: 16px;
+}
+
+.home__header__left .input {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 4px 8px;
+}
+
+.home__header__left .input .search-icon {
+  color: #3b5998;
+}
+
+.home__header__left .input form input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 4px;
+}
+
+.home__header__middle {
+  display: flex;
+  align-items: center;
+}
+
+.home__header__middle div {
+  margin: 0 8px;
+  cursor: pointer;
+}
+
+.home__header__right {
+  display: flex;
+  align-items: center;
+}
+
+.home__header__right div {
+  margin-left: 16px;
+  cursor: pointer;
+}
+
+.home__header__right img {
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.home__body {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  padding: 16px;
+}
+
+.home__body__sidebarLeft {
+  flex: 0 0 250px;
+  padding-right: 16px;
+}
+
+.home__body__sidebarLeft .inside {
+  display: flex;
+  flex-direction: column;
+}
+
+.home__body__sidebarLeft .inside div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  color: #3b5998;
+  cursor: pointer;
+}
+
+.home__body__sidebarLeft .inside div mat-icon {
+  margin-right: 8px;
+}
+
+.home__body__contentMiddle {
+  flex: 1;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.home__body__contentMiddle__top {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 16px;
+  margin-bottom: 16px;
+}
+
+.home__body__contentMiddle__center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.home__body__contentMiddle__center .post-message {
+  margin-bottom: 16px;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.home__body__contentMiddle__center .post-message-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid lightgray;
+}
+
+.home__body__contentMiddle__center .post-message-header img {
+  height: 40px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+.home__body__contentMiddle__center .post-message-header form input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 8px;
+}
+
+.home__body__contentMiddle__center .card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.home__body__contentMiddle__center .card-body div {
+  display: flex;
+  align-items: center;
+  color: #3b5998;
+  cursor: pointer;
+}
+
+.home__body__contentMiddle__center .card-body div mat-icon {
+  margin-right: 8px;
+}
+
+.home__body__contentMiddle__center .posts {
+  margin-bottom: 16px;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.home__body__contentMiddle__center .posts__header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+}
+
+.home__body__contentMiddle__center .posts__header img {
+  height: 40px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+.home__body__contentMiddle__center .posts__header__right {
+  display: flex;
+  flex-direction: column;
+}
+
+.home__body__contentMiddle__center .posts__header__right span {
+  font-size: 12px;
+  color: gray;
+}
+
+.home__body__contentMiddle__center .posts__header__right h3 {
+  font-size: 16px;
+  margin: 4px 0;
+}
+
+.home__body__contentMiddle__center .posts__body {
+  padding: 16px;
+}
+
+.home__body__feedRight {
+  flex: 0 0 250px;
+  padding-left: 16px;
+}
+
+.home__body__feedRight .inside img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.image-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.image-card .bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-card .mat-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+}
+
+.image-card .mat-card-content .avatar {
+  height: 30px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+.image-card .mat-card-content .card-name {
+  font-size: 14px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
