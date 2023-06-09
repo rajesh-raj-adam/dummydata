@@ -29,3 +29,52 @@
 }
 
 .form-outline input:focus {
+  border-color: #3b5998;
+  box-shadow: 0 0 0 0.25rem rgba(59, 89, 152, 0.25);
+}
+
+.btn-primary {
+  background-color: #3b5998;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #30487b;
+}
+
+.btn-success {
+  background-color: #42b72a;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #399c23;
+}
+
+.text-danger {
+  color: red;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.text-white {
+  color: white;
+}
+
+@media (max-width: 767px) {
+  .h-custom {
+    height: auto;
+  }
+
+  .card {
+    margin-bottom: 30px;
+  }
+}
