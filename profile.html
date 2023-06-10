@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* Reset default styles */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* Body styles */
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        /* Container styles */
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Profile header styles */
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+        }
+        
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-info h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .profile-info p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        /* Profile posts styles */
+        
+        .profile-posts {
+            margin-bottom: 20px;
+        }
+        
+        .profile-posts h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .post {
+            background-color: #fff;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .post-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .post-header h3 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .post-content p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        /* Profile friends styles */
+        
+        .profile-friends {
+            margin-bottom: 20px;
+        }
+        
+        .profile-friends h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .friend-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+        
+        .friend {
+            text-align: center;
+        }
+        
+        .friend img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 5px;
+        }
+        
+        .friend p {
+            font-size: 14px;
+        }
+        /* Update form styles */
+        
+        .update-form-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.3s;
+        }
+        
+        .update-form-container.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .update-form {
+            background-color: #fff;
+            max-width: 500px;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .update-form h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .update-form form {
+            display: grid;
+            grid-gap: 10px;
+        }
+        
+        .update-form label {
+            font-size: 14px;
+        }
+        
+        .update-form input[type="text"],
+        .update-form input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+        }
+        
+        .update-form button {
+            padding: 8px 16px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        /* Popup trigger styles */
+        
+        .update-profile-btn {
+            background-color: #333;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <div class="profile-photo">
+                <img src="path_to_profile_photo.jpg" alt="Profile Photo">
+            </div>
+            <div class="profile-info">
+                <h1>User Name</h1>
+                <p>User Bio</p>
+                <p>User Location</p>
+            </div>
+        </div>
+
+        <div class="profile-posts">
+            <h2>User Posts</h2>
+            <div class="post">
+                <div class="post-header">
+                    <img src="path_to_post_author_photo.jpg" alt="Post Author Photo">
+                    <h3>Post Author Name</h3>
+                </div>
+                <div class="post-content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et leo eu mauris interdum aliquam. Phasellus mattis vulputate ligula, at tincidunt mi consequat a.</p>
+                </div>
+            </div>
+            <!-- Add more posts here -->
+        </div>
+
+        <div class="profile-friends">
+            <h2>User Friends</h2>
+            <div class="friend-list">
+                <div class="friend">
+                    <img src="path_to_friend_photo.jpg" alt="Friend Photo">
+                    <p>Friend Name</p>
+                </div>
+                <!-- Add more friends here -->
+            </div>
+        </div>
+
+        <button class="update-profile-btn" onclick="toggleUpdateForm()">Update Profile</button>
+
+        <div class="update-form-container" id="updateFormContainer">
+            <div class="update-form">
+                <h2>Update Profile</h2>
+                <form>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name">
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email">
+
+                    <label for="bio">Bio:</label>
+                    <input type="text" id="bio" name="bio">
+
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location">
+
+                    <button type="submit">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleUpdateForm() {
+            const updateFormContainer = document.getElementById('updateFormContainer');
+            updateFormContainer.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>
