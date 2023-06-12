@@ -1,121 +1,139 @@
-<div class="profile-container">
-  <div class="cover-photo">
-    <!-- Cover photo content here -->
-  </div>
+<!DOCTYPE html>
+<html lang="en">
 
-  <div class="profile-content">
-    <div class="profile-sidebar">
-      <mat-card class="user-details-card">
-        <mat-card-header>
-          <div mat-card-avatar class="user-avatar"></div>
-          <mat-card-title>User Details</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <!-- User details content here -->
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="friends-card">
-        <mat-card-header>
-          <mat-card-title>Friends</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="friends-list">
-            <mat-card class="friend-card" *ngFor="let friend of friends">
-              <div mat-card-avatar class="friend-avatar"></div>
-              <mat-card-title>{{ friend.name }}</mat-card-title>
-              <mat-card-subtitle>{{ friend.email }}</mat-card-subtitle>
-            </mat-card>
-          </div>
-        </mat-card-content>
-      </mat-card>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <style>
+    /* Add your custom styles here */
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="cover-photo">
+      <!-- Cover photo content here -->
     </div>
 
-    <div class="profile-main">
+    <div class="profile-content">
       <div class="tabs">
-        <button class="tab" [ngClass]="{ 'active': activeTab === 'details' }" (click)="changeTab('details')">User Details</button>
-        <button class="tab" [ngClass]="{ 'active': activeTab === 'friends' }" (click)="changeTab('friends')">Friends</button>
-        <button class="tab" [ngClass]="{ 'active': activeTab === 'posts' }" (click)="changeTab('posts')">Posts</button>
+        <button class="tab-button" (click)="setActiveTab('details')" [class.active]="activeTab === 'details'">User Details</button>
+        <button class="tab-button" (click)="setActiveTab('friends')" [class.active]="activeTab === 'friends'">Friends</button>
+        <button class="tab-button" (click)="setActiveTab('posts')" [class.active]="activeTab === 'posts'">Posts</button>
       </div>
 
-      <div class="tab-content">
-        <div *ngIf="activeTab === 'details'" class="details-section">
-          <mat-card class="user-details-card">
-            <mat-card-header>
-              <div mat-card-avatar class="user-avatar"></div>
-              <mat-card-title>User Details</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <!-- User details content here -->
-            </mat-card-content>
+      <div class="profile-section" *ngIf="activeTab === 'details'">
+        <h2>User Details</h2>
+        <mat-card>
+          <div class="profile-details">
+            <img [src]="user.avatar" alt="User Photo">
+            <div class="profile-info">
+              <h3>{{ user.name }}</h3>
+              <p>{{ user.bio }}</p>
+              <p>{{ user.location }}</p>
+            </div>
+          </div>
+          <button class="update-profile-btn" (click)="toggleUpdateForm()">Update Profile</button>
+        </mat-card>
+      </div>
+
+      <div class="profile-section" *ngIf="activeTab === 'friends'">
+        <h2>Friends</h2>
+        <div class="friend-list">
+          <mat-card *ngFor="let friend of friends">
+            <div class="friend">
+              <img [src]="friend.avatar" alt="Friend Photo">
+              <p>{{ friend.name }}</p>
+            </div>
           </mat-card>
         </div>
+      </div>
 
-        <div *ngIf="activeTab === 'friends'" class="friends-section">
-          <mat-card class="friends-card">
-            <mat-card-header>
-              <mat-card-title>Friends</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <div class="friends-list">
-                <mat-card class="friend-card" *ngFor="let friend of friends">
-                  <div mat-card-avatar class="friend-avatar"></div>
-                  <mat-card-title>{{ friend.name }}</mat-card-title>
-                  <mat-card-subtitle>{{ friend.email }}</mat-card-subtitle>
-                </mat-card>
+      <div class="profile-section" *ngIf="activeTab === 'posts'">
+        <h2>Posts</h2>
+        <div class="post-list">
+          <mat-card *ngFor="let post of posts">
+            <div class="post">
+              <div class="post-header">
+                <img [src]="post.author.avatar" alt="Post Author Photo">
+                <h3>{{ post.author.name }}</h3>
               </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-
-        <div *ngIf="activeTab === 'posts'" class="posts-section">
-          <mat-card class="posts-card" *ngFor="let post of posts">
-            <mat-card-header>
-              <div mat-card-avatar class="user-avatar"></div>
-              <mat-card-title>{{ post.title }}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <p>{{ post.content }}</p>
-            </mat-card-content>
+              <div class="post-content">
+                <p>{{ post.content }}</p>
+              </div>
+            </div>
           </mat-card>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+  <div class="update-form-container" [ngClass]="{ 'active': isUpdateFormVisible }">
+    <div class="update-form">
+      <h2>Update Profile</h2>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="user.name">
+
+        <label for="bio">Bio:</label>
+        <input type="text" id="bio" name="bio" [(ngModel)]="user.bio">
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" [(ngModel)]="user.location">
+
+        <button type="submit" (click)="updateProfile()">Update</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Add your component logic here
+    const updateFormContainer = document.querySelector('.update-form-container');
+    const updateProfileBtn = document.querySelector('.update-profile-btn');
+
+    let isUpdateFormVisible = false;
+
+    function toggleUpdateForm() {
+      isUpdateFormVisible = !isUpdateFormVisible;
+      updateFormContainer.classList.toggle('active');
+    }
+
+    updateProfileBtn.addEventListener('click', toggleUpdateForm);
+  </script>
+</body>
+
+</html>
 
 
-.profile-container {
+/* CSS code for User Profile page */
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
   max-width: 800px;
   margin: 0 auto;
-  background-color: #f2f2f2;
   padding: 20px;
 }
 
+/* Cover photo */
 .cover-photo {
-  height: 300px;
-  background-image: url('path/to/cover-photo.jpg');
-  background-size: cover;
-  background-position: center;
-  margin-bottom: 20px;
+  height: 200px;
+  background-color: #ccc;
 }
 
+/* Profile content */
 .profile-content {
-  display: flex;
-}
-
-.profile-sidebar {
-  width: 30%;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 4px;
-}
-
-.profile-main {
-  flex-grow: 1;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 4px;
-  margin-left: 20px;
+  margin-top: 20px;
 }
 
 .tabs {
@@ -124,76 +142,164 @@
   margin-bottom: 20px;
 }
 
-.tab {
-  background-color: transparent;
+.tab-button {
+  background-color: #f2f2f2;
   border: none;
-  outline: none;
-  cursor: pointer;
   padding: 10px 20px;
   font-size: 16px;
-  color: #555555;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.tab.active {
-  color: #ff0000;
-  font-weight: bold;
+.tab-button.active {
+  background-color: #ccc;
 }
 
-.tab-content {
-  margin-top: 20px;
-}
-
-.details-section,
-.friends-section,
-.posts-section {
+.profile-section {
   display: none;
 }
 
-.user-details-card,
-.friends-card,
-.posts-card {
+.profile-section.active {
+  display: block;
+}
+
+.profile-details {
+  display: flex;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-.user-avatar,
-.friend-avatar {
-  width: 50px;
-  height: 50px;
+.profile-details img {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
+  margin-right: 20px;
 }
 
-.friend-card {
+.profile-info h3 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.profile-info p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.update-profile-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.update-profile-btn:hover {
+  background-color: #45a049;
+}
+
+.friend-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.friend-list mat-card {
+  flex-basis: 50%;
+  padding: 10px;
+}
+
+.post-list {
+  margin-top: 20px;
+}
+
+.post {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+
+.post-header img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.update-form-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+  z-index: 999;
+}
+
+.update-form-container.active {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.update-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 100%;
+}
+
+.update-form h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.update-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.update-form input {
+  width: 100%;
+  padding: 5px;
   margin-bottom: 10px;
 }
 
-/* Additional styling and animations as per your requirement */
-import { Component } from '@angular/core';
+.update-form button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-@Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
-})
-export class ProfileComponent {
-  activeTab: string = 'details';
+.update-form button:hover {
+  background-color: #45a049;
+}
 
-  friends: any[] = [
-    { name: 'Friend 1', email: 'friend1@example.com' },
-    { name: 'Friend 2', email: 'friend2@example.com' },
-    { name: 'Friend 3', email: 'friend3@example.com' },
-    // Add more friends as needed
-  ];
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+  .tabs {
+    flex-direction: column;
+  }
 
-  posts: any[] = [
-    { title: 'Post 1', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-    { title: 'Post 2', content: 'Nulla facilisi. Phasellus aliquam massa et magna congue mollis.' },
-    { title: 'Post 3', content: 'Curabitur rutrum enim in tellus maximus, sed finibus neque ultrices.' },
-    // Add more posts as needed
-  ];
+  .tab-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 
-  changeTab(tab: string): void {
-    this.activeTab = tab;
+  .friend-list mat-card {
+    flex-basis: 100%;
   }
 }
+
