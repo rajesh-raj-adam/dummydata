@@ -1,0 +1,199 @@
+<div class="profile-container">
+  <div class="cover-photo">
+    <!-- Cover photo content here -->
+  </div>
+
+  <div class="profile-content">
+    <div class="profile-sidebar">
+      <mat-card class="user-details-card">
+        <mat-card-header>
+          <div mat-card-avatar class="user-avatar"></div>
+          <mat-card-title>User Details</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <!-- User details content here -->
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="friends-card">
+        <mat-card-header>
+          <mat-card-title>Friends</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="friends-list">
+            <mat-card class="friend-card" *ngFor="let friend of friends">
+              <div mat-card-avatar class="friend-avatar"></div>
+              <mat-card-title>{{ friend.name }}</mat-card-title>
+              <mat-card-subtitle>{{ friend.email }}</mat-card-subtitle>
+            </mat-card>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="profile-main">
+      <div class="tabs">
+        <button class="tab" [ngClass]="{ 'active': activeTab === 'details' }" (click)="changeTab('details')">User Details</button>
+        <button class="tab" [ngClass]="{ 'active': activeTab === 'friends' }" (click)="changeTab('friends')">Friends</button>
+        <button class="tab" [ngClass]="{ 'active': activeTab === 'posts' }" (click)="changeTab('posts')">Posts</button>
+      </div>
+
+      <div class="tab-content">
+        <div *ngIf="activeTab === 'details'" class="details-section">
+          <mat-card class="user-details-card">
+            <mat-card-header>
+              <div mat-card-avatar class="user-avatar"></div>
+              <mat-card-title>User Details</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <!-- User details content here -->
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div *ngIf="activeTab === 'friends'" class="friends-section">
+          <mat-card class="friends-card">
+            <mat-card-header>
+              <mat-card-title>Friends</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="friends-list">
+                <mat-card class="friend-card" *ngFor="let friend of friends">
+                  <div mat-card-avatar class="friend-avatar"></div>
+                  <mat-card-title>{{ friend.name }}</mat-card-title>
+                  <mat-card-subtitle>{{ friend.email }}</mat-card-subtitle>
+                </mat-card>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div *ngIf="activeTab === 'posts'" class="posts-section">
+          <mat-card class="posts-card" *ngFor="let post of posts">
+            <mat-card-header>
+              <div mat-card-avatar class="user-avatar"></div>
+              <mat-card-title>{{ post.title }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{ post.content }}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+.profile-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.cover-photo {
+  height: 300px;
+  background-image: url('path/to/cover-photo.jpg');
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 20px;
+}
+
+.profile-content {
+  display: flex;
+}
+
+.profile-sidebar {
+  width: 30%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.profile-main {
+  flex-grow: 1;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  margin-left: 20px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.tab {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #555555;
+}
+
+.tab.active {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+.tab-content {
+  margin-top: 20px;
+}
+
+.details-section,
+.friends-section,
+.posts-section {
+  display: none;
+}
+
+.user-details-card,
+.friends-card,
+.posts-card {
+  margin-bottom: 20px;
+}
+
+.user-avatar,
+.friend-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.friend-card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Additional styling and animations as per your requirement */
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
+})
+export class ProfileComponent {
+  activeTab: string = 'details';
+
+  friends: any[] = [
+    { name: 'Friend 1', email: 'friend1@example.com' },
+    { name: 'Friend 2', email: 'friend2@example.com' },
+    { name: 'Friend 3', email: 'friend3@example.com' },
+    // Add more friends as needed
+  ];
+
+  posts: any[] = [
+    { title: 'Post 1', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+    { title: 'Post 2', content: 'Nulla facilisi. Phasellus aliquam massa et magna congue mollis.' },
+    { title: 'Post 3', content: 'Curabitur rutrum enim in tellus maximus, sed finibus neque ultrices.' },
+    // Add more posts as needed
+  ];
+
+  changeTab(tab: string): void {
+    this.activeTab = tab;
+  }
+}
