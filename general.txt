@@ -1,12 +1,87 @@
-function generateUniqueId(length: number): string {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  let result = '';
+<div class="profile-container">
+  <div class="cover-photo">
+    <!-- Cover photo content here -->
+  </div>
 
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * charactersLength);
-    result += characters.charAt(randomIndex);
+  <div class="tabs">
+    <button class="tab" [ngClass]="{ 'active': activeTab === 'details' }" (click)="changeTab('details')">User Details</button>
+    <button class="tab" [ngClass]="{ 'active': activeTab === 'friends' }" (click)="changeTab('friends')">Friends</button>
+    <button class="tab" [ngClass]="{ 'active': activeTab === 'posts' }" (click)="changeTab('posts')">Posts</button>
+  </div>
+
+  <div class="content">
+    <div *ngIf="activeTab === 'details'" class="details-section">
+      <!-- User details content here -->
+    </div>
+
+    <div *ngIf="activeTab === 'friends'" class="friends-section">
+      <!-- Friends content here -->
+    </div>
+
+    <div *ngIf="activeTab === 'posts'" class="posts-section">
+      <!-- Posts content here -->
+    </div>
+  </div>
+</div>
+
+
+.profile-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cover-photo {
+  height: 300px;
+  background-image: url('path/to/cover-photo.jpg');
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 20px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #555555;
+}
+
+.tab.active {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+.content {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.details-section,
+.friends-section,
+.posts-section {
+  display: none;
+}
+
+/* Additional styling and animations as per your requirement */
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
+})
+export class ProfileComponent {
+  activeTab: string = 'details';
+
+  changeTab(tab: string): void {
+    this.activeTab = tab;
   }
-
-  return result;
 }
