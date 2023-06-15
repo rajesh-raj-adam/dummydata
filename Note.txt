@@ -1,0 +1,12 @@
+<button mat-button [matMenuTriggerFor]="notificationMenu">Notifications</button>
+
+<mat-menu #notificationMenu="matMenu">
+
+  <ng-container *ngFor="let notification of notifications">
+
+    <button mat-menu-item>{{ notification.title }}</button>
+
+  </ng-container>
+
+</mat-menu>
+
