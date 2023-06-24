@@ -7,3 +7,17 @@
 4. "Amidst the chaos of modern life, nature offers us a sanctuary of peace. The whisper of the wind, the dance of sunlight through the trees, and the gentle flow of rivers remind us of life's simple joys. Let's venture into the great outdoors, explore its hidden treasures, and let nature's embrace heal our weary hearts. #NatureHeals #SerenitySeeker"
 
 5. "Nature's wonders are a testament to the power of creation. From the delicate petals of a flower to the raw might of a thunderstorm, it reminds us of the awe-inspiring forces at play. Let's celebrate the magnificence of our natural world and strive to protect and preserve it for generations to come. #NatureUnleashed #WonderOfCreation"
+
+
+
+/**
+ * Returns the sum of two numbers.
+ *
+ * @param a the first number
+ * @param b the second number
+ * @return the sum of a and b
+ */
+public int sum(int a, int b) {
+    return a + b;
+}
+
