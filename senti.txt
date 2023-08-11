@@ -1,0 +1,146 @@
+Certainly! To implement the functionality you described, you can create a controller with different endpoint methods to handle each of the three conditions. Here's how you can achieve this:
+
+**1. Fetch All Products by Category:**
+```java
+@RestController
+@RequestMapping("/reviews")
+public class ReviewController {
+
+    @Autowired
+    private ReviewService reviewService;
+
+    @GetMapping("/by-category")
+    public List<Review> getReviewsByCategory(@RequestParam String category) {
+        return reviewService.getReviewsByCategory(category);
+    }
+    
+    // Other endpoint methods for the other conditions
+}
+```
+
+**2. Fetch by Category and Product:**
+```java
+@GetMapping("/by-category-and-product")
+public List<Review> getReviewsByCategoryAndProduct(@RequestParam String category, @RequestParam String product) {
+    return reviewService.getReviewsByCategoryAndProduct(category, product);
+}
+```
+
+**3. Fetch by Category, Product, and Rating:**
+```java
+@GetMapping("/by-category-product-rating")
+public List<Review> getReviewsByCategoryProductAndRating(
+        @RequestParam String category, @RequestParam String product, @RequestParam int rating) {
+    return reviewService.getReviewsByCategoryProductAndRating(category, product, rating);
+}
+```
+
+In the `ReviewService` class, you can define methods that use your `ReviewRepository` to perform the actual database queries based on the input criteria:
+
+```java
+@Service
+public class ReviewService {
+
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+    public List<Review> getReviewsByCategory(String category) {
+        return reviewRepository.findByCategory(category);
+    }
+    
+    public List<Review> getReviewsByCategoryAndProduct(String category, String product) {
+        return reviewRepository.findByCategoryAndProduct(category, product);
+    }
+    
+    public List<Review> getReviewsByCategoryProductAndRating(String category, String product, int rating) {
+        return reviewRepository.findByCategoryAndProductAndRating(category, product, rating);
+    }
+}
+```
+
+With this setup, you can now make HTTP GET requests to the respective endpoints and provide the required parameters in the query string to retrieve the reviews based on the specified criteria.
+
+For example:
+- To fetch all products of a category: `/reviews/by-category?category=Electronics`
+- To fetch products of a specific category and product: `/reviews/by-category-and-product?category=Electronics&product=Smartphone`
+- To fetch products of a specific category, product, and rating: `/reviews/by-category-product-rating?category=Electronics&product=Smartphone&rating=4`
+
+Remember to handle potential exceptions and validation according to your application's requirements.
+Yes, you can implement the functionality using a single endpoint by making use of optional request parameters. Here's an example of how you can achieve this:
+
+```java
+@RestController
+@RequestMapping("/reviews")
+public class ReviewController {
+
+    @Autowired
+    private ReviewService reviewService;
+
+    @GetMapping("/search")
+    public List<Review> searchReviews(
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String product,
+            @RequestParam(required = false) Integer rating) {
+        
+        if (category != null && product != null && rating != null) {
+            return reviewService.getReviewsByCategoryProductAndRating(category, product, rating);
+        } else if (category != null && product != null) {
+            return reviewService.getReviewsByCategoryAndProduct(category, product);
+        } else if (category != null) {
+            return reviewService.getReviewsByCategory(category);
+        } else {
+            // Handle case where no parameters are provided, maybe return all reviews
+            return reviewService.getAllReviews();
+        }
+    }
+}
+```
+
+In this approach, you define a single endpoint `/reviews/search` that accepts three optional query parameters: `category`, `product`, and `rating`. Depending on the presence of these parameters, the controller method will call the appropriate service method to fetch the reviews.
+
+**ReviewService.java**
+```java
+@Service
+public class ReviewService {
+
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+    // Existing methods...
+    
+    public List<Review> getAllReviews() {
+        return reviewRepository.findAll();
+    }
+}
+```
+
+With this setup, you can call the `/reviews/search` endpoint with different combinations of query parameters to achieve the desired functionality:
+
+- To fetch all products of a category: `/reviews/search?category=Electronics`
+- To fetch products of a specific category and product: `/reviews/search?category=Electronics&product=Smartphone`
+- To fetch products of a specific category, product, and rating: `/reviews/search?category=Electronics&product=Smartphone&rating=4`
+- To fetch all reviews: `/reviews/search`
+
+This single endpoint approach provides flexibility and allows you to handle different search scenarios using a single entry point.
+I apologize for the oversight. Here's the missing implementation for the service layer methods `getReviewsByCategoryAndProduct` and `getReviewsByCategoryProductAndRating` in the `ReviewService` class:
+
+```java
+@Service
+public class ReviewService {
+
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+    // Existing methods...
+
+    public List<Review> getReviewsByCategoryAndProduct(String category, String product) {
+        return reviewRepository.findByCategoryAndProduct(category, product);
+    }
+    
+    public List<Review> getReviewsByCategoryProductAndRating(String category, String product, int rating) {
+        return reviewRepository.findByCategoryAndProductAndRating(category, product, rating);
+    }
+}
+```
+
+These methods use the appropriate repository methods to fetch reviews based on the specified criteria of category, product, and rating. They are then returned to the controller, which in turn sends the results as a response to the client.
