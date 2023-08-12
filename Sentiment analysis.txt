@@ -1,0 +1,39 @@
+<dependency>
+    <groupId>edu.stanford.nlp</groupId>
+    <artifactId>stanford-corenlp</artifactId>
+    <version>4.3.1</version>
+</dependency>
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import java.util.Properties;
+
+@Service
+public class SentimentAnalysisService {
+
+    private final StanfordCoreNLP pipeline;
+
+    public SentimentAnalysisService() {
+        Properties properties = new Properties();
+        properties.setProperty("annotators", "tokenize,ssplit,pos,parse,sentiment");
+        pipeline = new StanfordCoreNLP(properties);
+    }
+
+    public int getSentimentScore(String text) {
+        Annotation annotation = new Annotation(text);
+        pipeline.annotate(annotation);
+        CoreMap sentence = annotation.get(CoreAnnotations.SentencesAnnotation.class).get(0);
+        return sentence.get(SentimentCoreAnnotations.SentimentClass.class);
+    }
+}
+
+@RestController
+public class SentimentController {
+
+    @Autowired
+    private SentimentAnalysisService sentimentAnalysisService;
+
+    @PostMapping("/analyzeSentiment")
+    public String analyzeSentiment(@RequestBody String text) {
+        int sentimentScore = sentimentAnalysisService.getSentimentScore(text);
+        return "Sentiment Score: " + sentimentScore;
+    }
+}
