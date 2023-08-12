@@ -1,0 +1,172 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.css']
+})
+export class FormComponent implements OnInit {
+  categories: string[] = ['Category 1', 'Category 2', 'Category 3'];
+  products: string[] = ['Product A', 'Product B', 'Product C'];
+  ratings: number[] = [-1, -0.9, -0.8, /* ... */, 1];
+
+  selectedCategory: string = '';
+  selectedProduct: string = '';
+  selectedRating: number = 0;
+
+  constructor() { }
+
+  ngOnInit(): void { }
+
+  onSubmit(): void {
+    // Call an API to send the form data to the backend (using HttpClient)
+  }
+}
+
+
+
+<div class="form-container">
+  <div class="form">
+    <select [(ngModel)]="selectedCategory">
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+    <select [(ngModel)]="selectedProduct">
+      <option *ngFor="let product of products" [value]="product">{{ product }}</option>
+    </select>
+    <select [(ngModel)]="selectedRating">
+      <option *ngFor="let rating of ratings" [value]="rating">{{ rating }}</option>
+    </select>
+    <button (click)="onSubmit()">Submit</button>
+  </div>
+</div>
+
+
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+
+@Component({
+  selector: 'app-speedometer',
+  templateUrl: './speedometer.component.html',
+  styleUrls: ['./speedometer.component.css']
+})
+export class SpeedometerComponent implements OnChanges {
+  @Input() value: number = 0;
+
+  angle: number = 0;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('value' in changes) {
+      this.angle = (this.value + 1) * 50; // Assuming 100-degree speedometer
+    }
+  }
+}
+
+
+<div class="speedometer-container">
+  <div class="speedometer">
+    <div class="pointer" [style.transform]="'rotate(' + angle + 'deg)'"></div>
+    <div class="labels">
+      <span *ngFor="let label of [-1, -0.9, -0.8, /* ... */, 1]">{{ label }}</span>
+    </div>
+  </div>
+  <div class="value">{{ value }}</div>
+</div>
+
+
+@RestController
+@RequestMapping("/api")
+public class ApiController {
+  @PostMapping("/update-speedometer")
+  public ResponseEntity<String> updateSpeedometer(@RequestBody Map<String, Object> requestData) {
+    // Process the received data and return a response
+    return ResponseEntity.ok("Speedometer updated successfully");
+  }
+}
+/* form.component.css */
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+select, button {
+  margin: 5px 0;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 200px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+
+/* speedometer.component.css */
+
+.speedometer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.speedometer {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border: 10px solid #ddd;
+  border-radius: 50%;
+}
+
+.pointer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: left center;
+  transform: translate(-50%, -50%) rotate(0deg);
+  width: 4px;
+  height: 100px;
+  background-color: red;
+  transition: transform 0.5s ease;
+}
+
+.labels {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color: #333;
+}
+
+.labels span {
+  margin-top: 5px;
+}
+
+.value {
+  margin-top: 15px;
+  font-size: 20px;
+  color: #333;
+}
