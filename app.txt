@@ -1,0 +1,160 @@
+<div class="container">
+  <div class="form-container">
+    <form (ngSubmit)="submitForm()">
+      <label for="category">Category:</label>
+      <select id="category" name="category" [(ngModel)]="selectedCategory">
+        <option value="category1">Category 1</option>
+        <option value="category2">Category 2</option>
+        <!-- Add more categories as needed -->
+      </select>
+
+      <label for="product">Product:</label>
+      <select id="product" name="product" [(ngModel)]="selectedProduct">
+        <option value="product1">Product 1</option>
+        <option value="product2">Product 2</option>
+        <!-- Add more products as needed -->
+      </select>
+
+      <label for="rating">Rating:</label>
+      <select id="rating" name="rating" [(ngModel)]="selectedRating">
+        <option value="0.1">0.1</option>
+        <option value="0.2">0.2</option>
+        <!-- Add more ratings as needed -->
+      </select>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div class="speedometer-container">
+    <div class="speedometer">
+      <div class="pointer" [style.transform]="'rotate(' + calculateRotation() + 'deg)'"></div>
+      <div class="scale">
+        <div *ngFor="let tick of ticks" class="tick" [style.transform]="'rotate(' + tick.angle + 'deg)'">{{ tick.value }}</div>
+      </div>
+      <div class="current-value">{{ currentValue }}</div>
+    </div>
+  </div>
+</div>
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-container {
+  width: 50%;
+  padding: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.speedometer-container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.speedometer {
+  width: 200px;
+  height: 200px;
+  border: 5px solid #ccc;
+  border-radius: 50%;
+  position: relative;
+}
+
+.pointer {
+  position: absolute;
+  width: 2px;
+  height: 80px;
+  background-color: red;
+  left: calc(50% - 1px);
+  top: calc(50% - 80px);
+  transform-origin: bottom center;
+  transition: transform 0.5s;
+}
+
+.scale {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.tick {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 15px;
+  background-color: #333;
+  transform-origin: bottom center;
+  transform: translateX(-50%);
+  font-size: 12px;
+  text-align: center;
+  color: #333;
+}
+
+.current-value {
+  position: absolute;
+  bottom: 10px;
+  left: calc(50% - 20px);
+  font-size: 16px;
+}
+
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  selectedCategory: string = '';
+  selectedProduct: string = '';
+  selectedRating: string = '0.1';
+  currentValue: number = 0.1;
+
+  ticks = [
+  { angle: -180, value: -1.0 },
+  { angle: -162, value: -0.9 },
+  { angle: -144, value: -0.8 },
+  { angle: -126, value: -0.7 },
+  { angle: -108, value: -0.6 },
+  { angle: -90, value: -0.5 },
+  { angle: -72, value: -0.4 },
+  { angle: -54, value: -0.3 },
+  { angle: -36, value: -0.2 },
+  { angle: -18, value: -0.1 },
+  { angle: 0, value: 0.0 },
+  { angle: 18, value: 0.1 },
+  { angle: 36, value: 0.2 },
+  { angle: 54, value: 0.3 },
+  { angle: 72, value: 0.4 },
+  { angle: 90, value: 0.5 },
+  { angle: 108, value: 0.6 },
+  { angle: 126, value: 0.7 },
+  { angle: 144, value: 0.8 },
+  { angle: 162, value: 0.9 },
+  { angle: 180, value: 1.0 }
+];
+
+
+  calculateRotation(): string {
+    const angle = -90 + (180 * (parseFloat(this.selectedRating) + 1));
+    return angle + 'deg';
+  }
+
+  submitForm() {
+    this.currentValue = parseFloat(this.selectedRating);
+  }
+}
