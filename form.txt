@@ -1,0 +1,120 @@
+export const categories = [
+  'Category 1',
+  'Category 2',
+  'Category 3',
+  // ... add more categories
+];
+
+export const products = [
+  'Product A',
+  'Product B',
+  'Product C',
+  // ... add more products
+];
+
+export const ratings = [
+  '1 Star',
+  '2 Stars',
+  '3 Stars',
+  '4 Stars',
+  '5 Stars',
+];
+
+
+import { Component } from '@angular/core';
+import { categories, products, ratings } from './sample-options';
+
+@Component({
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.css']
+})
+export class FormComponent {
+  categories = categories;
+  products = products;
+  ratings = ratings;
+
+  selectedCategory: string | undefined;
+  selectedProduct: string | undefined;
+  selectedRating: string | undefined;
+
+  onSubmit() {
+    // Handle form submission here
+    console.log('Form submitted');
+  }
+}
+
+
+<!-- form.component.html -->
+<div class="form-container">
+  <h2>Form</h2>
+  <form (ngSubmit)="onSubmit()">
+    <label for="category">Category:</label>
+    <select id="category" [(ngModel)]="selectedCategory" name="category">
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+
+    <label for="product">Product:</label>
+    <select id="product" [(ngModel)]="selectedProduct" name="product">
+      <option *ngFor="let product of products" [value]="product">{{ product }}</option>
+    </select>
+
+    <label for="rating">Rating:</label>
+    <select id="rating" [(ngModel)]="selectedRating" name="rating">
+      <option *ngFor="let rating of ratings" [value]="rating">{{ rating }}</option>
+    </select>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+
+/* form.component.css */
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+select, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { FormComponent } from './form.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    FormComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
