@@ -1,0 +1,68 @@
+/* form.component.css */
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 10px;
+  color: #555;
+}
+
+select, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+select {
+  background-color: #fff;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Custom styling for dropdown arrows */
+select::-ms-expand {
+  display: none;
+}
+
+select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="black" width="12px" height="8px" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1.41 0L6 4.59 10.59 0 12 1.41l-6 6-6-6z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 12px 8px;
+}
+
+/* Media query for responsive design */
+@media (max-width: 500px) {
+  .form-container {
+    max-width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 15px;
+  }
+}
