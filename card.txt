@@ -1,0 +1,95 @@
+<div class="card" [ngClass]="{'red-theme': sentiment < 0, 'green-theme': sentiment >= 0}">
+  <div class="card-header orange-theme">
+    <h2 class="heading">Sentiment Analysis</h2>
+  </div>
+  <div class="card-body">
+    <div class="emoji">
+      <ng-container *ngIf="sentiment < 0">
+        😔 <!-- Negative emoji -->
+      </ng-container>
+      <ng-container *ngIf="sentiment >= 0">
+        😄 <!-- Positive emoji -->
+      </ng-container>
+    </div>
+    <div class="label">
+      <p class="sentiment-label">Sentiment Score</p>
+      <p class="score">{{ sentiment }}</p>
+    </div>
+  </div>
+</div>
+/* Main card container */
+.card {
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Orange theme */
+.orange-theme {
+  background-color: orange;
+  color: white;
+}
+
+/* Red theme */
+.red-theme {
+  background-color: #ffcccc;
+}
+
+/* Green theme */
+.green-theme {
+  background-color: #ccffcc;
+}
+
+/* Header */
+.card-header {
+  padding: 10px 0;
+  text-align: center;
+}
+
+/* Heading */
+.heading {
+  font-size: 1.5rem;
+}
+
+/* Body */
+.card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Emoji */
+.emoji {
+  font-size: 2rem;
+}
+
+/* Label and sentiment score */
+.label {
+  text-align: right;
+}
+
+.sentiment-label {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+}
+
+.score {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Adjust margin and padding as needed */
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-sentiment-card',
+  templateUrl: './sentiment-card.component.html',
+  styleUrls: ['./sentiment-card.component.css']
+})
+export class SentimentCardComponent {
+  @Input() sentiment: number; // Input property to receive sentiment score
+
+  constructor() { }
+}
