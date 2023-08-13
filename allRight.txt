@@ -1,0 +1,49 @@
+// your-component.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-your-component',
+  templateUrl: './your-component.component.html',
+  styleUrls: ['./your-component.component.css']
+})
+export class YourComponent {
+  output: number = 0.2;
+
+  getPointerTransform() {
+    const rotation = this.output * 180; // Convert the output to degrees
+    return `rotate(${rotation}deg)`;
+  }
+}
+/* your-component.component.css */
+.speedometer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px; /* Set an appropriate height */
+}
+
+.speedometer {
+  position: relative;
+  width: 200px; /* Adjust the width */
+  height: 100px; /* Adjust the height */
+  background-color: lightgray; /* Set the background color */
+  border-radius: 0 0 100px 100px;
+  overflow: hidden;
+}
+
+.pointer {
+  position: absolute;
+  width: 6px;
+  height: 50px; /* Adjust the length of the pointer */
+  background-color: red; /* Set the pointer color */
+  transform-origin: bottom center;
+  transform: rotate(0deg); /* Initial rotation */
+  transition: transform 0.5s ease; /* Add smooth transition */
+}
+<!-- your-component.component.html -->
+<div class="speedometer-container">
+  <div class="speedometer">
+    <div class="pointer" [style.transform]="getPointerTransform()"></div>
+  </div>
+</div>
+<p>Output: {{ output }}</p>
