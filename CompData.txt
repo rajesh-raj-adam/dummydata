@@ -1,0 +1,48 @@
+Sure, here's how you can achieve that using MySQL queries:
+
+1. **Create a Database:**
+You can create a new database using the `CREATE DATABASE` statement.
+
+```sql
+CREATE DATABASE ComputerDatabase;
+```
+
+2. **Use the Database:**
+After creating the database, you need to switch to it using the `USE` statement.
+
+```sql
+USE ComputerDatabase;
+```
+
+3. **Create a Table:**
+You can create a table within the database using the `CREATE TABLE` statement.
+
+```sql
+CREATE TABLE Computer (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    model_number VARCHAR(255),
+    company VARCHAR(255),
+    model_name VARCHAR(255),
+    year_of_release INT
+);
+```
+
+4. **Insert Data:**
+You can insert 10 data points into the `Computer` table using the `INSERT INTO` statement.
+
+```sql
+INSERT INTO Computer (model_number, company, model_name, year_of_release)
+VALUES
+    ('1234', 'Dell', 'Inspiron', 2020),
+    ('5678', 'HP', 'Pavilion', 2019),
+    ('9101', 'Lenovo', 'ThinkPad', 2021),
+    ('1213', 'Apple', 'MacBook Pro', 2020),
+    ('1415', 'Acer', 'Aspire', 2018),
+    ('1617', 'Asus', 'ZenBook', 2021),
+    ('1819', 'Microsoft', 'Surface Laptop', 2019),
+    ('2021', 'Toshiba', 'Satellite', 2017),
+    ('2223', 'Sony', 'VAIO', 2015),
+    ('2425', 'Samsung', 'Notebook', 2022);
+```
+
+This sequence of MySQL queries will create a database named `ComputerDatabase`, create a table named `Computer` with columns for model number, company, model name, and year of release, and then insert 10 data points into the table with relevant information related to computers.
